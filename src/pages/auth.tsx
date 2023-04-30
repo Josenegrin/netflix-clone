@@ -7,6 +7,10 @@ import axios from 'axios'
 import { signIn } from 'next-auth/react'
 import { useRouter } from "next/router"
 
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
+import { BsFacebook } from 'react-icons/bs'
+
 const Auth = () => {
   const router = useRouter()
 
@@ -94,8 +98,29 @@ const Auth = () => {
                 onChange={handleChange}/>
               <Button
                 onClick={variant === 'login' ? login : register}
-                text={variant === 'login' ? 'Iniciar sesión' : 'Crea una cuenta'}
-              />
+              >
+                {variant === 'login' ? 'Iniciar sesión' : 'Crea una cuenta'}
+              </Button>
+              <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
+                <Button
+                  onClick={() => signIn('google', { callbackUrl: '/'})}
+                  styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
+                >
+                  <FcGoogle size={30}/>
+                </Button>
+                <Button
+                  onClick={() => signIn('github', { callbackUrl: '/'})}
+                  styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
+                >
+                  <FaGithub size={30}/>
+                </Button>
+                <Button
+                  onClick={() => signIn('facebook', { callbackUrl: '/'})}
+                  styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
+                >
+                  <BsFacebook size={30} color={'#3b5998'}/>
+                </Button>
+              </div>
               <p className='text-neutral-500 mt-12 text-center'>
                 {variant === 'login' ? es.auth.login.footer.text : es.auth.register.footer.text}
                 <span
