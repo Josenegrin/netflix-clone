@@ -3,13 +3,23 @@ import Input from "@/components/Input"
 import Image from "next/image"
 import Button from "@/components/Button"
 import { es } from "@/locale"
+import axios from 'axios'
+import { signIn } from 'next-auth/react'
+import { useRouter } from "next/router"
+
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
+import { BsFacebook } from 'react-icons/bs'
 
 const Auth = () => {
-  const [initialValue, setInitialValue] = useState({
+  const router = useRouter()
+
+  const [formValue, setFormValue] = useState({
     username: '',
     email: '',
     password: ''
   })
+
   const [variant, setVariant] = useState('login')
 
   const toggleVariant = useCallback(() => {
@@ -17,14 +27,48 @@ const Auth = () => {
   }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInitialValue({...initialValue, [e.target.name]: e.target.value})
+    setFormValue({...formValue, [e.target.name]: e.target.value})
   }
+
+  const login = useCallback(async () => {
+    try {
+      await signIn('credentials', {
+        email: formValue.email,
+        password: formValue.password,
+        redirect: false,
+        callbackUrl: '/'
+      })
+
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }, [formValue.email, formValue.password, router])
+
+  const register = useCallback(async() => {
+    try {
+      await axios.post('api/register', {
+        email: formValue.email,
+        name: formValue.username,
+        password: formValue.password
+      })
+
+      login();
+    } catch (error) {
+      console.log(error)
+    }
+  }, [formValue, login])
 
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="bg-black w-full h-full md:bg-opacity-50">
         <nav className="px-12 py-5">
-          <Image src='/images/logo.png' alt="Logo" width={200} height={100}/>
+          <Image
+            src='/images/logo.png'
+            alt="Logo"
+            width={200}
+            height={100}
+          />
         </nav>
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 md:w-2/3 md:max-w-md rounded-md w-full">
@@ -36,23 +80,47 @@ const Auth = () => {
                 <Input
                   name='username'
                   type='text'
-                  value={initialValue.username}
+                  value={formValue.username}
                   label={es.auth.form.username.label}
                   onChange={handleChange}/>
               )}
               <Input
                 name='email'
                 type='email'
-                value={initialValue.email}
+                value={formValue.email}
                 label={es.auth.form.email.label}
                 onChange={handleChange}/>
               <Input
                 name='password'
                 type='password'
-                value={initialValue.password}
+                value={formValue.password}
                 label={es.auth.form.password.label}
                 onChange={handleChange}/>
-              <Button text={variant === 'login' ? 'Iniciar sesión' : 'Crea una cuenta'}/>
+              <Button
+                onClick={variant === 'login' ? login : register}
+              >
+                {variant === 'login' ? 'Iniciar sesión' : 'Crea una cuenta'}
+              </Button>
+              <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
+                <Button
+                  onClick={() => signIn('google', { callbackUrl: '/'})}
+                  styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
+                >
+                  <FcGoogle size={30}/>
+                </Button>
+                <Button
+                  onClick={() => signIn('github', { callbackUrl: '/'})}
+                  styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
+                >
+                  <FaGithub size={30}/>
+                </Button>
+                <Button
+                  onClick={() => signIn('facebook', { callbackUrl: '/'})}
+                  styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
+                >
+                  <BsFacebook size={30} color={'#3b5998'}/>
+                </Button>
+              </div>
               <p className='text-neutral-500 mt-12 text-center'>
                 {variant === 'login' ? es.auth.login.footer.text : es.auth.register.footer.text}
                 <span
