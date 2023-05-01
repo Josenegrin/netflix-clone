@@ -30,6 +30,18 @@ export const es = {
   },
   profiles: {
     title: '¿Quién está mirando?'
+  },
+  navBar: {
+    mobileMenu: {
+      browse: {
+        text: 'Navegar'
+      }
+    },
+    accountMenu: {
+      signOut: {
+        text: 'Cerrar Sesión'
+      }
+    }
   }
 
 }
