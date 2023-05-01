@@ -1,19 +1,16 @@
-import { useCallback, useState } from "react"
-import Input from "@/components/Input"
-import Image from "next/image"
-import Button from "@/components/Button"
-import { es } from "@/locale"
+import { useCallback, useState } from 'react'
+import Input from '@/components/Input'
+import Image from 'next/image'
+import Button from '@/components/Button'
+import { es } from '@/locale'
 import axios from 'axios'
 import { signIn } from 'next-auth/react'
-import { useRouter } from "next/router"
 
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import { BsFacebook } from 'react-icons/bs'
 
 const Auth = () => {
-  const router = useRouter()
-
   const [formValue, setFormValue] = useState({
     username: '',
     email: '',
@@ -27,7 +24,7 @@ const Auth = () => {
   }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValue({...formValue, [e.target.name]: e.target.value})
+    setFormValue({ ...formValue, [e.target.name]: e.target.value })
   }
 
   const login = useCallback(async () => {
@@ -35,17 +32,15 @@ const Auth = () => {
       await signIn('credentials', {
         email: formValue.email,
         password: formValue.password,
-        redirect: false,
-        callbackUrl: '/'
+        callbackUrl: '/profiles'
       })
 
-      router.push('/')
     } catch (error) {
       console.log(error)
     }
-  }, [formValue.email, formValue.password, router])
+  }, [formValue.email, formValue.password])
 
-  const register = useCallback(async() => {
+  const register = useCallback(async () => {
     try {
       await axios.post('api/register', {
         email: formValue.email,
@@ -53,7 +48,7 @@ const Auth = () => {
         password: formValue.password
       })
 
-      login();
+      login()
     } catch (error) {
       console.log(error)
     }
@@ -82,20 +77,20 @@ const Auth = () => {
                   type='text'
                   value={formValue.username}
                   label={es.auth.form.username.label}
-                  onChange={handleChange}/>
+                  onChange={handleChange} />
               )}
               <Input
                 name='email'
                 type='email'
                 value={formValue.email}
                 label={es.auth.form.email.label}
-                onChange={handleChange}/>
+                onChange={handleChange} />
               <Input
                 name='password'
                 type='password'
                 value={formValue.password}
                 label={es.auth.form.password.label}
-                onChange={handleChange}/>
+                onChange={handleChange} />
               <Button
                 onClick={variant === 'login' ? login : register}
               >
@@ -103,22 +98,22 @@ const Auth = () => {
               </Button>
               <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
                 <Button
-                  onClick={() => signIn('google', { callbackUrl: '/'})}
+                  onClick={() => signIn('google', { callbackUrl: '/profiles' })}
                   styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
                 >
-                  <FcGoogle size={30}/>
+                  <FcGoogle size={30} />
                 </Button>
                 <Button
-                  onClick={() => signIn('github', { callbackUrl: '/'})}
+                  onClick={() => signIn('github', { callbackUrl: '/profiles' })}
                   styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
                 >
-                  <FaGithub size={30}/>
+                  <FaGithub size={30} />
                 </Button>
                 <Button
-                  onClick={() => signIn('facebook', { callbackUrl: '/'})}
+                  onClick={() => signIn('facebook', { callbackUrl: '/profiles' })}
                   styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
                 >
-                  <BsFacebook size={30} color={'#3b5998'}/>
+                  <BsFacebook size={30} color={'#3b5998'} />
                 </Button>
               </div>
               <p className='text-neutral-500 mt-12 text-center'>

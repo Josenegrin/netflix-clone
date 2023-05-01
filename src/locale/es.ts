@@ -27,6 +27,9 @@ export const es = {
         label: 'Escribe tu contraseña'
       },
     }
+  },
+  profiles: {
+    title: '¿Quién está mirando?'
   }
 
 }
