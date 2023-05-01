@@ -1,4 +1,4 @@
-import React, { HTMLInputTypeAttribute } from "react";
+import React, { HTMLInputTypeAttribute } from 'react'
 
 interface InputProps {
   name: string;

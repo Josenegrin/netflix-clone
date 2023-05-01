@@ -1,1 +1,1 @@
-export { es } from "./es";
+export { es } from './es'
