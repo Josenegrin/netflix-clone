@@ -1,19 +1,13 @@
 import React from 'react'
+import { ButtonProps } from './interface'
+import { buttonStylesTypes } from './styles'
 
-interface ButtonProps {
-  children: React.ReactElement<HTMLParagraphElement> | React.ReactNode;
-  text?: string
-  styles?: string
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
-
-const Button: React.FC<ButtonProps> = ({children, styles, onClick}) => {
-const defaultClassName = 'bg-red-600 text-white rounded-md  w-full py-3 mt-10 hover:bg-red-700 transition'
+const Button: React.FC<ButtonProps> = ({ children, styles, type, onClick }) => {
 
   return (
     <button
       onClick={onClick}
-      className={ styles ? styles : defaultClassName}
+      className={styles ? styles : type && buttonStylesTypes[type] ? buttonStylesTypes[type] : buttonStylesTypes.default}
     >
       {children}
     </button>
