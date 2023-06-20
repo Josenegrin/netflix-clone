@@ -1,5 +1,6 @@
 import React from 'react'
 import ResponsiveImage from '../ResponsiveImage/indes'
+import FavoriteButton from '../FavoriteButton'
 import PlayButton from '../PlayButton'
 import { MovieCardProps } from './interface'
 import { es } from '@/locale'
@@ -26,6 +27,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
               type='playRounded'
               movieId={data?.id}
             />
+            <FavoriteButton movieId={data?.id} />
           </div>
           <p className='text-green-400 mt-4'>
             <strong>{es.movieCard.new.text}</strong>
