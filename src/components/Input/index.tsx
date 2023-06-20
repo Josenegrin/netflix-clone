@@ -1,12 +1,5 @@
-import React, { HTMLInputTypeAttribute } from 'react'
-
-interface InputProps {
-  name: string;
-  onChange: any;
-  value: string;
-  label: string;
-  type?: HTMLInputTypeAttribute 
-}
+import React from 'react'
+import { InputProps } from './interface'
 
 const Input: React.FC<InputProps> = ({
   name, onChange, value, label, type
