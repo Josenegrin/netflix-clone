@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { es } from '@/locale'
 
 const Profiles = () => {
-  const router = useRouter()
+  const { push } = useRouter()
   const { data: user } = useCurrentUser()
  
   return (
@@ -14,7 +14,7 @@ const Profiles = () => {
       <div className='flex flex-col'>
         <h1 className='text-white text-3xl md:text-6xl'>{es.profiles.title}</h1>
         <div className='flex items-center justify-center gap-8 mt-10'>
-          <div onClick={() => router.push('/')}>
+          <div onClick={() => push('/')}>
             <div className='group flex-row w-44 mx-auto'>
               <div
                 className='w-44 h-44 rounded-md flex items-center justify-center border-2 border-transparent group-hover:cursor-pointer group-hover:border-white overflow-hidden'>
@@ -35,8 +35,9 @@ const Profiles = () => {
 
 export default Profiles
 
-export async function serverSideProps(context: NextPageContext) {
-  const session = await getSession()
+export async function getServerSideProps(context: NextPageContext) {
+
+  const session = await getSession(context)
 
   if (!session) {
     return {
