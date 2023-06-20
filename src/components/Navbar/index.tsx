@@ -5,12 +5,13 @@ import { BsSearch, BsBell } from 'react-icons/bs'
 import MobileMenu from '../MobileMenu'
 import { menuItems } from '@/lib/menuItems'
 import AccountMenu from '../AccountMenu'
+import { useRouter } from 'next/router'
 
 const TOP_OFFSET = 66
 
 const Navbar = () => {
   const [showBackground, setShowBackground] = useState<boolean>(false)
-
+  const { push } = useRouter()
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >=  TOP_OFFSET) {
@@ -47,14 +48,14 @@ const Navbar = () => {
           alt='Logo'
         />
         <div className='flex-row ml-8 gap-7 hidden lg:flex'>
-          {menuItems.map((item) => <NavbarItem key={`NavItem-${item.label}`} label={item.label} />)}
+          {menuItems.map((item) => <NavbarItem key={`NavItem-${item.label}`} label={item.label} onClick={() => push(`${item.route}`)}/>)}
         </div>
           <MobileMenu />
           <div className='flex flex-row ml-auto gap-7 items-center'>
-            <div className='text-gray-200 hover:text-gray-300 cursor-pointer transition'>
+            <div className='text-gray-200 hover:text-gray-300 transition'>
               <BsSearch />
             </div>
-            <div className='text-gray-200 hover:text-gray-300 cursor-pointer transition'>
+            <div className='text-gray-200 hover:text-gray-300 transition'>
               <BsBell />
             </div>
             <AccountMenu/>

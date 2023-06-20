@@ -9,7 +9,8 @@ const AccountMenu = () => {
   const [showAccountMenu, setShowAccountMenu] = useState<boolean>(false)
 
   const { data: user } = useCurrentUser()
-    const toggleAccountMenu = useCallback(() => {
+
+  const toggleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current)
   }, [])
 
@@ -30,7 +31,7 @@ const AccountMenu = () => {
             <div className='px-3 group/item flex flex-row gap-3 items-center w-full'>
               <ResponsiveImage imageStyles='rounded-md' styles='h-8 w-8 rounded-md' alt='AccountProfile' src='/images/default-blue.png' />
               <p className='text-white text-sm group-hover/item:underline'>
-                {user.name}
+                {user.name || ''}
               </p>
             </div>
             <hr className='bg-gray-600 border-0 h-px my-4' />
