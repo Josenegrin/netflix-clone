@@ -42,6 +42,41 @@ export const es = {
         text: 'Cerrar Sesión'
       }
     }
+  },
+  buttons: {
+    info: {
+      text: 'Más información'
+    },
+    play: {
+      text: 'Reproducir'
+    }
+  },
+  movieCard: {
+    new: {
+      text: 'Nuevo'
+    },
+    description: {
+      text: 'Descripción'
+    },
+    duration: {
+      text: 'Duración'
+    },
+    genre: {
+      text: 'Género'
+    }
+  },
+  category: {
+    home: {
+      text: 'Inicio'
+    },
+    favorites: {
+      text: 'Favoritos'
+    }
+  },
+  player: {
+    watching: {
+      text: 'Viendo'
+    }
   }
 
 }

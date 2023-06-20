@@ -1,4 +1,4 @@
 export interface PlayButtonProps {
   movieId: string;
-  type?: 'play'
+  type?: 'play' | 'playRounded'
 }
