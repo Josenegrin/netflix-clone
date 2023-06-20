@@ -1,5 +1,5 @@
 interface ButtonTypes {
-  type?: 'play' | 'playRounded' | 'arrow' | 'billboard' | 'favorite'
+  type?: 'play' | 'playRounded' | 'arrow' | 'billboard' | 'favorite' | 'modal'
 }
 
 export interface ButtonProps extends ButtonTypes {

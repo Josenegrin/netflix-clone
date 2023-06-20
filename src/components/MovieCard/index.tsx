@@ -2,10 +2,14 @@ import React from 'react'
 import ResponsiveImage from '../ResponsiveImage/indes'
 import FavoriteButton from '../FavoriteButton'
 import PlayButton from '../PlayButton'
+import useInfoModal from '@/hooks/useInfoModal'
+import Button from '../Button'
+import { BiChevronDown } from 'react-icons/bi'
 import { MovieCardProps } from './interface'
 import { es } from '@/locale'
 
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
+  const { openModal } = useInfoModal()
   
   return (
     <div className='group bg-zinc-900 col-span relative h-[12vw] cursor-pointer'>
@@ -28,6 +32,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
               movieId={data?.id}
             />
             <FavoriteButton movieId={data?.id} />
+            <Button
+              type='modal'
+              onClick={() => openModal(data?.id)}
+            >
+              <BiChevronDown className='text-white group-hover/item:text-neutral-300' size={25}/>
+            </Button>
           </div>
           <p className='text-green-400 mt-4'>
             <strong>{es.movieCard.new.text}</strong>
