@@ -52,8 +52,8 @@ const Auth = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [formValue, login])
-
+  }, [formValue.email, formValue.username, formValue.password, login])
+  
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="bg-black w-full h-full md:bg-opacity-50">
@@ -93,7 +93,7 @@ const Auth = () => {
                 onChange={handleChange} />
               <Button
                 onClick={variant === 'login' ? login : register}
-              >
+                >
                 {variant === 'login' ? 'Iniciar sesión' : 'Crea una cuenta'}
               </Button>
               <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
