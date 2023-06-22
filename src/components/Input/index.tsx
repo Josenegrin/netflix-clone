@@ -7,11 +7,11 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="relative">
       <input
-      placeholder=' '
+      placeholder={name}
       value={value}
       onChange={onChange}
       type={type}
-      className='block rounded-md py-6 px-6 text-md appearance-none focus:outline-none focus:ring-0 bg-neutral-700 text-white peer self-center w-full'
+      className='placeholder-transparent block rounded-md py-6 px-6 text-md appearance-none focus:outline-none focus:ring-0 bg-neutral-700 text-white peer self-center w-full'
       name={name}
       />
       <label
