@@ -1,4 +1,5 @@
 
+
 # 📺 Fullstack Netflix Clone
 
 This is a Netflix clone project developed using TypeScript, Next.js, Node.js, and Tailwind CSS. The main objective of this project is to create a full-stack application using Node.js for building the APIs and implementing server-side rendering (SSR) for optimized loading.
@@ -79,4 +80,9 @@ To run tests, run the following command
 ```
   npm run test
 ```
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
 
