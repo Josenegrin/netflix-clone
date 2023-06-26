@@ -33,12 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   
     if (req.method === 'DELETE') {
-      console.log(req.method, ' req.method ')
       const { currentUser } = await serverAuth(req, res)
-      
-      console.log('piripicho')
-      console.log(req)
-      console.log('piripicho')
       const { id: queryId } = req.query
       const movieId = queryId as string
 
@@ -47,7 +42,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           id: movieId,
         }
       })
-      console.log(existingMovie, 'existingMovie')
 
       if(!existingMovie) throw new Error('Invalid ID')
 
