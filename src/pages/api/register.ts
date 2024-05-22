@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     })
 
-    if (existingUser) return res.status(422).json({ error: 'Email taken'})
+    if (existingUser) return res.status(422).json({ error: 'Email taken, try another email'})
 
     const hashedPassword = await bcrypt.hash(password, 12)
 

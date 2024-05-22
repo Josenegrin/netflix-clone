@@ -14,17 +14,17 @@ export default function Home() {
   const { isOpen, closeModal } = useInfoModal()
 
   return (
-  <div>
-    <InfoModal visible={isOpen} onClose={closeModal}/>
-    <Navbar />
-    <Billboard />
-    <div className='pb-40'>
-      <MovieList title='Trending Now' data={movies}/>
+    <div>
+      <InfoModal visible={isOpen} onClose={closeModal} />
+      <Navbar />
+      <Billboard />
+      <div className='pb-40'>
+        <MovieList title='Trending Now' data={movies} />
+      </div>
+      <div className='pb-40'>
+        <MovieList title='Favorites' data={favorites} />
+      </div>
     </div>
-    <div className='pb-40'>
-      <MovieList title='Favorites' data={favorites}/>
-    </div>
-  </div>
   )
 }
 

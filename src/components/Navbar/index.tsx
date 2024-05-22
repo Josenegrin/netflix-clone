@@ -14,7 +14,7 @@ const Navbar = () => {
   const { push } = useRouter()
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY >=  TOP_OFFSET) {
+      if (window.scrollY >= TOP_OFFSET) {
         setShowBackground(true)
       } else {
         setShowBackground(false)
@@ -48,17 +48,17 @@ const Navbar = () => {
           alt='Logo'
         />
         <div className='flex-row ml-8 gap-7 hidden lg:flex'>
-          {menuItems.map((item) => <NavbarItem key={`NavItem-${item.label}`} label={item.label} onClick={() => push(`${item.route}`)}/>)}
+          {menuItems.map((item) => <NavbarItem key={`NavItem-${item.label}`} label={item.label} onClick={() => push(`${item.route}`)} />)}
         </div>
-          <MobileMenu />
-          <div className='flex flex-row ml-auto gap-7 items-center'>
-            <div className='text-gray-200 hover:text-gray-300 transition'>
-              <BsSearch />
-            </div>
-            <div className='text-gray-200 hover:text-gray-300 transition'>
-              <BsBell />
-            </div>
-            <AccountMenu/>
+        <MobileMenu />
+        <div className='flex flex-row ml-auto gap-7 items-center'>
+          <div className='text-gray-200 hover:text-gray-300 transition hidden'>
+            <BsSearch />
+          </div>
+          <div className='text-gray-200 hover:text-gray-300 transition hidden'>
+            <BsBell />
+          </div>
+          <AccountMenu />
         </div>
       </div>
     </nav>

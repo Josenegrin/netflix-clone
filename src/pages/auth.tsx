@@ -9,19 +9,22 @@ import { signIn } from 'next-auth/react'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import { BsFacebook } from 'react-icons/bs'
+import { useRouter } from 'next/router'
 
 const Auth = () => {
+  const { push } = useRouter()
   const [formValue, setFormValue] = useState({
     username: '',
     email: '',
     password: ''
   })
-
+  const [error, setError] = useState<string>('')
   const [variant, setVariant] = useState('login')
 
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
-  }, [])
+    if (error) setError('')
+  }, [error])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value })
@@ -32,13 +35,19 @@ const Auth = () => {
       await signIn('credentials', {
         email: formValue.email,
         password: formValue.password,
-        callbackUrl: '/profiles'
+        redirect: false,
+      }).then(({ ok, error }) => {
+        if (ok) {
+          push('/profiles')
+        } else {
+          setError(error)
+        }
       })
 
     } catch (error) {
       console.log(error)
     }
-  }, [formValue.email, formValue.password])
+  }, [formValue.email, formValue.password, push])
 
   const register = useCallback(async () => {
     try {
@@ -50,10 +59,11 @@ const Auth = () => {
 
       login()
     } catch (error) {
+      setError(error?.response?.data?.error ?? '')
       console.log(error)
     }
   }, [formValue.email, formValue.username, formValue.password, login])
-  
+
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="bg-black w-full h-full md:bg-opacity-50">
@@ -71,6 +81,9 @@ const Auth = () => {
               {variant === 'login' ? es.auth.login.title : es.auth.register.title}
             </h2>
             <div className="flex flex-col gap-4">
+              {error && (
+                <div className='text-gray-950 bg-amber-500 p-4 rounded-md text-center'>{error}</div>
+              )}
               {variant === 'register' && (
                 <Input
                   name='username'
@@ -93,7 +106,7 @@ const Auth = () => {
                 onChange={handleChange} />
               <Button
                 onClick={variant === 'login' ? login : register}
-                >
+              >
                 {variant === 'login' ? 'Iniciar sesión' : 'Crea una cuenta'}
               </Button>
               <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
