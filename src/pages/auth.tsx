@@ -36,11 +36,11 @@ const Auth = () => {
         email: formValue.email,
         password: formValue.password,
         redirect: false,
-      }).then(({ ok, error }) => {
-        if (ok) {
+      }).then((res) => {
+        if (res?.ok) {
           push('/profiles')
         } else {
-          setError(error)
+          setError(res?.error ?? '')
         }
       })
 
@@ -58,8 +58,10 @@ const Auth = () => {
       })
 
       login()
-    } catch (error) {
-      setError(error?.response?.data?.error ?? '')
+    } catch (error: any) {
+      if (error?.response?.data?.error) {
+        setError(error?.response?.data?.error)
+      }
       console.log(error)
     }
   }, [formValue.email, formValue.username, formValue.password, login])
