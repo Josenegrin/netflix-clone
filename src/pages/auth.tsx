@@ -111,7 +111,7 @@ const Auth = () => {
               >
                 {variant === 'login' ? 'Iniciar sesión' : 'Crea una cuenta'}
               </Button>
-              <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
+              <div className='flex flex-row items-center gap-4 mt-8 justify-center hidden'>
                 <Button
                   onClick={() => signIn('google', { callbackUrl: '/profiles' })}
                   styles='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'
